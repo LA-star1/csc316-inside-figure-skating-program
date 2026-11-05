@@ -135,7 +135,7 @@
 
 				<section class="column panel motion-column" class:inactive-panel={workspaceTab !== 'movement'} aria-labelledby="motion-title">
 					<div class="column-head"><span class="section-number">C · 3D REFERENCE</span><h3 id="motion-title">A movement example</h3><p>Illustrative Single Axel demonstration.</p></div>
-					<div class="movement-preview" aria-hidden="true"><span>↻</span><b>Single Axel</b><small>Takeoff · rotation · landing</small></div><button class="primary" onclick={() => go('movement')}>Open the large 3D example ↗</button>
+					<figure class="movement-preview"><img src="/movement-reference.png" alt="Generic Single Axel skater shown at the simulated apex in the indoor rink"/><figcaption>Single Axel · takeoff, rotation and landing</figcaption></figure><button class="primary" onclick={() => go('movement')}>Open the large 3D example ↗</button>
 					<p class="motion-caveat">This is a generic reference demo, not motion capture of {selectedSkater || 'the selected skater'} or a Beijing 2022 performance.</p>
 					<a class="text-link" href="https://figure-skating-axel-demo.billziang-chen.chatgpt.site/" target="_blank" rel="noreferrer">Open the 3D demo in a new tab ↗</a>
 				</section>
@@ -158,8 +158,8 @@
     {:else if activeStage === 'movement'}
       <p class="stage-intro">Single Axel · a generic movement reference. This is not motion capture of {selectedSkater} or a Beijing 2022 performance.</p>
       <div class="motion-toolbar"><button class="secondary" onclick={() => { workspaceTab = 'movement'; go('workspace'); }}>← Return to workbench</button><a class="primary" href="https://figure-skating-axel-demo.billziang-chen.chatgpt.site/" target="_blank" rel="noreferrer">Open demo in a full browser window ↗</a></div>
-      <div class="large-motion"><iframe src="https://figure-skating-axel-demo.billziang-chen.chatgpt.site/" title="Generic Single Axel 3D reference — drag to rotate and use playback controls" allow="fullscreen" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
-      <p class="scope-note">Use Play, Front and Side inside the demo. On a small screen, open the full browser window for the largest view. Simulated travel and flight phases are illustrative.</p>
+      <figure class="motion-poster"><a href="https://figure-skating-axel-demo.billziang-chen.chatgpt.site/" target="_blank" rel="noreferrer" aria-label="Launch the interactive Single Axel demo in a new tab"><img src="/movement-reference.png" alt="Actual demo preview showing a generic skater at the simulated apex, with playback and camera controls"/></a><figcaption>Preview of the interactive demo · Open the full browser window to play, rotate, scrub frames and change camera views.</figcaption></figure>
+      <p class="scope-note">The interactive demo opens in its own tab; this workbench keeps your selected program and element. Use Play, Front and Side in the demo. Simulated travel and flight phases are illustrative.</p>
     {/if}
     {/if}
   </section>

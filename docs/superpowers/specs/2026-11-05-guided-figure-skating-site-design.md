@@ -1,6 +1,6 @@
 # Guided Figure-Skating Site Redesign
 
-**Status:** Draft for user review
+**Status:** Implemented direction; final verification in progress
 **Date:** 2026-11-05
 
 ## Goal
@@ -65,7 +65,9 @@ Each chart has an **Expand chart** action that opens a focused detail stage for 
 
 ### 6. Full-size movement reference
 
-Open the existing Single Axel demo as a dedicated stage with enough viewport height for the canvas, information card, and controls. Keep a visible back control and a direct **Open demo in a new tab** fallback. State beside the demo that it is a generic reference, not motion capture of the selected Beijing athlete. Do not encode the selected element as if it were a matching animation.
+Use a dedicated reference stage with an actual demo screenshot, a visible workbench return control and a prominent **Open demo in a full browser window** action. The interactive demo runs in its own tab, giving its canvas and controls the full window. State beside the preview that it is a generic reference, not motion capture of the selected Beijing athlete. Do not encode the selected element as if it were a matching animation.
+
+Implementation evidence changed the embedding choice: both the public and local iframe remained at `about:blank`; a minimal static iframe reproduced the failure. The same external URL loaded and its simulated-apex control worked in a full browser tab. The launcher therefore uses the explicit full-window path rather than an empty frame. The embedded failure's server/browser cause remains undetermined; no security controls are bypassed.
 
 ## State and transitions
 
@@ -103,7 +105,7 @@ Changing a skater or segment selects that program's first valid element. Selecti
 1. A visitor can follow the story using Back/Next, see progress, skip ahead, and use browser Back/Forward without losing the selected skater/program/element.
 2. Only one main stage is visible at a time; the page no longer requires scrolling through every chart to reach the next part.
 3. The desktop workbench retains three columns; narrower screens use Sequence/Score/Movement tabs rather than squeezing or stacking the three panels into a long block.
-4. The 3D reference is launched in a dedicated large view; its title, information, playback controls, and caveat do not overlap or require nested scrolling at the tested viewport sizes.
+4. The movement reference stage is responsive and shows a real demo preview with the generic-reference caveat; its launch action opens the working interactive demo in a full window, without a nested scrolling iframe in the workspace.
 5. S11 and all five remaining selected views are reachable from clear navigation; each chart can open a focused detail view and return without losing shared state.
 6. Q7 and all chart denominators, labels, official values, and limitations remain accurate.
 7. Keyboard navigation, visible focus, reduced-motion behavior, chart text alternatives, and responsive layouts are checked at desktop, tablet, and phone widths.
