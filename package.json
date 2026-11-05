@@ -1,0 +1,22 @@
+{
+	"name": "csc316-inside-figure-skating-program",
+	"private": true,
+	"version": "0.1.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "vite preview",
+		"test": "node --test",
+		"data:prepare": "node scripts/prepare-data.mjs",
+		"check": "npm test && npm run build"
+	},
+	"devDependencies": {
+		"@sveltejs/vite-plugin-svelte": "^7.2.0",
+		"svelte": "^5.57.1",
+		"vite": "^8.3.0"
+	},
+	"dependencies": {
+		"d3": "^7.9.0"
+	}
+}
