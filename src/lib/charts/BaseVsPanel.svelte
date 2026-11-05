@@ -7,8 +7,8 @@
 	const yTicks = [0,5,10,15,20];
 </script>
 
-<div class="viz" role="img" aria-label="Clickable scatterplot of base value versus final panel element score for all jump protocol elements in the selected program.">
-	<div class="legend"><span><i class="sp"></i>Short program</span><span><i class="fs"></i>Free skate</span><span>Click a point to inspect it above</span></div>
+<div class="viz" role="group" aria-label="Clickable scatterplot of base value versus final panel element score for jump elements across the top-ten cohort.">
+	<div class="legend"><span><i class="sp"></i>Short program</span><span><i class="fs"></i>Free skate</span><span>Choose a point to open its workbench</span></div>
 	<svg viewBox="0 0 770 300">
 		{#each yTicks as t}<line x1="62" x2="720" y1={y(t)} y2={y(t)} stroke="#e7e9e4"/><text x="51" y={y(t)+4} text-anchor="end">{t}</text>{/each}
 		{#each xTicks as t}<line x1={x(t)} x2={x(t)} y1="32" y2="242" stroke="#eef0ec"/><text x={x(t)} y="260" text-anchor="middle">{t}</text>{/each}
