@@ -1,6 +1,6 @@
 # Guided Figure-Skating Site Redesign
 
-**Status:** Implemented direction; final verification in progress
+**Status:** Implemented and verified in Edge on the public Site
 **Date:** 2026-11-05
 
 ## Goal
