@@ -2,23 +2,30 @@
   import { onMount } from 'svelte';
   let { onClose, skater = '' } = $props();
   let dialog;
-  let frame;
+  let frame = $state(null);
+  let demoHtml = $state('');
+  let loadError = $state('');
   onMount(() => {
     const previousFocus = document.activeElement;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     dialog.showModal();
+    const controller = new AbortController();
+    fetch('/movement/index.html', { signal: controller.signal })
+      .then(response => { if (!response.ok) throw new Error(`Demo request failed (${response.status})`); return response.text(); })
+      .then(html => { demoHtml = html; })
+      .catch(error => { if (error.name !== 'AbortError') loadError = error.message; });
     const closeFromFrame = (event) => {
       if (event.origin === location.origin && event.source === frame?.contentWindow && event.data?.type === 'motion-escape') onClose();
     };
     window.addEventListener('message', closeFromFrame);
-    return () => { window.removeEventListener('message', closeFromFrame); document.body.style.overflow = previousOverflow; previousFocus?.focus?.({ preventScroll: true }); };
+    return () => { controller.abort(); window.removeEventListener('message', closeFromFrame); document.body.style.overflow = previousOverflow; previousFocus?.focus?.({ preventScroll: true }); };
   });
 </script>
 
 <dialog bind:this={dialog} class="motion-overlay" aria-labelledby="motion-overlay-title" oncancel={(event) => { event.preventDefault(); onClose(); }}>
   <header><div><h2 id="motion-overlay-title">Single Axel · 3D reference</h2><p>Generic demonstration · not motion capture of {skater || 'the selected athlete'}</p></div><button onclick={onClose}>Return to the main page ↙</button></header>
-  <iframe bind:this={frame} src="/movement/index.html" title="Interactive Single Axel demonstration with playback and camera controls"></iframe>
+  {#if demoHtml}<iframe bind:this={frame} srcdoc={demoHtml} title="Interactive Single Axel demonstration with playback and camera controls"></iframe>{:else if loadError}<p role="alert">{loadError}</p>{:else}<p role="status">Loading the interactive 3D reference…</p>{/if}
 </dialog>
 
 <style>
