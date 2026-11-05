@@ -14,9 +14,7 @@
 	let activeChart = $state('S12');
 	let workspaceTab = $state('sequence');
 	let motionOpen = $state(false);
-	let motionHoverUntil = 0;
-	function openMotionOnHover(event) { if (event.pointerType === 'mouse' && Date.now() > motionHoverUntil) motionOpen = true; }
-	function closeMotion() { motionHoverUntil = Date.now() + 500; motionOpen = false; }
+	function closeMotion() { motionOpen = false; }
 	let stageIndex = $derived(activeStage === 'chart-detail' ? 4 : stages.findIndex(s => s.id === activeStage));
 	const chartTitles = { S12: 'How do technical points contribute to the total?', S01: 'How many scored jump elements appear in each program?', S02: 'How do jump rotations relate to execution?', S06: 'How do spin and step levels compare with scores?', S15: 'How does execution change the element score?' };
 	let chartRows = $derived(activeChart === 'S12' ? segmentRows : allElements.filter(d => activeChart === 'S06' ? d.segment === selectedSegment && d.element_group !== 'jump' : activeChart === 'S02' || activeChart === 'S15' || activeChart === 'S01' ? d.element_group === 'jump' : true));
@@ -138,9 +136,9 @@
 					<p class="score-caveat">An element score combines base value and Grade of Execution (GOE). It does not measure the full artistic or athletic performance.</p>
 				</section>
 
-				<section onpointerenter={openMotionOnHover} class="column panel motion-column" class:inactive-panel={workspaceTab !== 'movement'} aria-labelledby="motion-title">
-					<div class="column-head"><span class="section-number">C · 3D REFERENCE</span><h3 id="motion-title">A movement example</h3><p>Hover over this panel to enter the full-screen 3D reference.</p></div>
-					<figure class="movement-preview"><img src="/movement-reference.png" alt="Generic Single Axel skater shown at the simulated apex in the indoor rink"/><figcaption>Single Axel · takeoff, rotation and landing</figcaption></figure><button class="motion-surface" aria-label="Expand the Single Axel 3D reference to full screen" onclick={() => motionOpen = true}><span>Hover here to expand the 3D reference</span><small>Click or press Enter to open · Esc to return</small></button>
+				<section class="column panel motion-column" class:inactive-panel={workspaceTab !== 'movement'} aria-labelledby="motion-title">
+					<div class="column-head"><span class="section-number">C · 3D REFERENCE</span><h3 id="motion-title">A movement example</h3><p>Open the interactive Single Axel reference in a full-screen view.</p></div>
+					<figure class="movement-preview"><img src="/movement-reference.png" alt="Generic Single Axel skater shown at the simulated apex in the indoor rink"/><figcaption>Single Axel · takeoff, rotation and landing</figcaption></figure><button class="primary motion-expand" onclick={() => motionOpen = true}>Expand 3D example ↗</button>
 					<p class="motion-caveat">This is a generic reference demo, not motion capture of {selectedSkater || 'the selected skater'} or a Beijing 2022 performance.</p>
 
 				</section>
