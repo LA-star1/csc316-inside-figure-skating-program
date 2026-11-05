@@ -2,6 +2,10 @@
 
 A CSC316 prototype built with Vite, Svelte 5, and D3. It explores the official Beijing 2022 men's singles top-ten scoring protocols and presents a separate generic 3D jump reference.
 
+## Live site
+
+Open the public prototype at [inside-figure-skating-program.eagercoast2.chatgpt.site](https://inside-figure-skating-program.eagercoast2.chatgpt.site/). No local server is needed.
+
 ## Run locally
 
 ```sh
