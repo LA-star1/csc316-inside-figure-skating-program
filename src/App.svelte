@@ -8,10 +8,15 @@
 	import ProtocolMatrix from './lib/charts/ProtocolMatrix.svelte';
 	import BaseVsPanel from './lib/charts/BaseVsPanel.svelte';
 
+	import MotionOverlay from './lib/MotionOverlay.svelte';
 	import { stages, chartIds, readRoute, routeHash } from './lib/navigation.mjs';
 	let activeStage = $state('story');
 	let activeChart = $state('S12');
 	let workspaceTab = $state('sequence');
+	let motionOpen = $state(false);
+	let motionHoverUntil = 0;
+	function openMotionOnHover(event) { if (event.pointerType === 'mouse' && Date.now() > motionHoverUntil) motionOpen = true; }
+	function closeMotion() { motionHoverUntil = Date.now() + 500; motionOpen = false; }
 	let stageIndex = $derived(activeStage === 'chart-detail' ? 4 : stages.findIndex(s => s.id === activeStage));
 	const chartTitles = { S12: 'How do technical points contribute to the total?', S01: 'How many scored jump elements appear in each program?', S02: 'How do jump rotations relate to execution?', S06: 'How do spin and step levels compare with scores?', S15: 'How does execution change the element score?' };
 	let chartRows = $derived(activeChart === 'S12' ? segmentRows : allElements.filter(d => activeChart === 'S06' ? d.segment === selectedSegment && d.element_group !== 'jump' : activeChart === 'S02' || activeChart === 'S15' || activeChart === 'S01' ? d.element_group === 'jump' : true));
@@ -133,11 +138,11 @@
 					<p class="score-caveat">An element score combines base value and Grade of Execution (GOE). It does not measure the full artistic or athletic performance.</p>
 				</section>
 
-				<section class="column panel motion-column" class:inactive-panel={workspaceTab !== 'movement'} aria-labelledby="motion-title">
-					<div class="column-head"><span class="section-number">C · 3D REFERENCE</span><h3 id="motion-title">A movement example</h3><p>Illustrative Single Axel demonstration.</p></div>
-					<figure class="movement-preview"><img src="/movement-reference.png" alt="Generic Single Axel skater shown at the simulated apex in the indoor rink"/><figcaption>Single Axel · takeoff, rotation and landing</figcaption></figure><button class="primary" onclick={() => go('movement')}>Open the large 3D example ↗</button>
+				<section onpointerenter={openMotionOnHover} class="column panel motion-column" class:inactive-panel={workspaceTab !== 'movement'} aria-labelledby="motion-title">
+					<div class="column-head"><span class="section-number">C · 3D REFERENCE</span><h3 id="motion-title">A movement example</h3><p>Hover over this panel to enter the full-screen 3D reference.</p></div>
+					<figure class="movement-preview"><img src="/movement-reference.png" alt="Generic Single Axel skater shown at the simulated apex in the indoor rink"/><figcaption>Single Axel · takeoff, rotation and landing</figcaption></figure><button class="motion-surface" aria-label="Expand the Single Axel 3D reference to full screen" onclick={() => motionOpen = true}><span>Hover here to expand the 3D reference</span><small>Click or press Enter to open · Esc to return</small></button>
 					<p class="motion-caveat">This is a generic reference demo, not motion capture of {selectedSkater || 'the selected skater'} or a Beijing 2022 performance.</p>
-					<a class="text-link" href="https://figure-skating-axel-demo.billziang-chen.chatgpt.site/" target="_blank" rel="noreferrer">Open the 3D demo in a new tab ↗</a>
+
 				</section>
 			</div>
       <div class="workspace-actions"><button class="secondary" onclick={() => go('protocol')}>Inspect protocol marks →</button><button class="secondary" onclick={() => go('charts','S15')}>Compare base value and panel score →</button></div>
@@ -157,9 +162,9 @@
       </article>
     {:else if activeStage === 'movement'}
       <p class="stage-intro">Single Axel · a generic movement reference. This is not motion capture of {selectedSkater} or a Beijing 2022 performance.</p>
-      <div class="motion-toolbar"><button class="secondary" onclick={() => { workspaceTab = 'movement'; go('workspace'); }}>← Return to workbench</button><a class="primary" href="https://figure-skating-axel-demo.billziang-chen.chatgpt.site/" target="_blank" rel="noreferrer">Open demo in a full browser window ↗</a></div>
-      <figure class="motion-poster"><a href="https://figure-skating-axel-demo.billziang-chen.chatgpt.site/" target="_blank" rel="noreferrer" aria-label="Launch the interactive Single Axel demo in a new tab"><img src="/movement-reference.png" alt="Actual demo preview showing a generic skater at the simulated apex, with playback and camera controls"/></a><figcaption>Preview of the interactive demo · Open the full browser window to play, rotate, scrub frames and change camera views.</figcaption></figure>
-      <p class="scope-note">The interactive demo opens in its own tab; this workbench keeps your selected program and element. Use Play, Front and Side in the demo. Simulated travel and flight phases are illustrative.</p>
+      <div class="motion-toolbar"><button class="secondary" onclick={() => { workspaceTab = 'movement'; go('workspace'); }}>← Return to workbench</button><button class="primary" onclick={() => motionOpen = true}>Enter full-screen 3D reference ↗</button></div>
+      <figure class="motion-poster"><button class="poster-launch" onclick={() => motionOpen = true} aria-label="Enter the interactive Single Axel demo in full screen"><img src="/movement-reference.png" alt="Actual demo preview showing a generic skater at the simulated apex, with playback and camera controls"/></button><figcaption>Preview of the interactive demo · Enter full screen to play, rotate, scrub frames and change camera views.</figcaption></figure>
+      <p class="scope-note">The full-screen view keeps your selected program and element. Use the upper-right Return button or Esc to come back. Use Play, Front and Side in the demo. Simulated travel and flight phases are illustrative.</p>
     {/if}
     {/if}
   </section>
@@ -170,3 +175,5 @@
 	<footer><div><span class="section-number">DATA & SCOPE</span><p>Beijing 2022 individual men’s singles · final top ten · 190 protocol elements · 20 segment records</p></div><div class="footer-links"><a href="https://results.isu.org/results/season2122/owg2022/CAT001RS.htm" target="_blank" rel="noreferrer">Final standings ↗</a><a href="https://www.isuresults.com/results/season2122/owg2022/owg2022_protocol.pdf" target="_blank" rel="noreferrer">Official protocol book ↗</a><a href="https://github.com/billchenziang33/csc316-inside-figure-skating-program" target="_blank" rel="noreferrer">Project source ↗</a></div></footer>
   </details>
 </div>
+
+{#if motionOpen}<MotionOverlay onClose={closeMotion} skater={selectedSkater}/>{/if}

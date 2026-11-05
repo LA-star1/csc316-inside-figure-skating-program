@@ -114,3 +114,7 @@ Changing a skater or segment selects that program's first valid element. Selecti
 ## Design-system decision
 
 The existing site already has a consistent editorial sports palette and type system. The UI/UX audit therefore recommends retaining those tokens and focusing the redesign on step hierarchy, navigation state, readable chart modes, and responsive workspace behavior. The product-design lookup suggested a guided experience with a skip route, progress feedback, and a dedicated immersive motion view; those interaction patterns are adopted without replacing the existing color palette.
+
+## User-requested C-panel revision
+
+The user's latest requirement supersedes the full-window launcher choice above: hover over C to expand its 3D content into a full-screen layer, with an upper-right Return to the main page button. C no longer shows an Open Large 3D Example button. Keyboard/touch activation and Escape are supported; closing preserves the selection. The existing demo is served locally after checking the MotionExpert repository's Apache-2.0 license and retaining full Apache/MIT texts and mesh/skate attribution. The local iframe loads successfully, avoiding the failed external embed. Desktop and phone layouts separate the canvas, statistics and controls. The same modal is reachable from the movement reference stage.

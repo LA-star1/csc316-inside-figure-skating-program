@@ -34,3 +34,12 @@ The design specification dated 2026-11-05 has been checked against App.svelte, a
 - [x] Commit/push final verified source to GitHub and synchronize the existing Sites source using its helper.
 - [x] Package dist with the existing hosting manifest; save the pushed SHA and deploy to the existing public Site.
 - [x] Verify the deployed guided stages in Edge and compare the result with all design acceptance criteria. Report any unmet requirement; keep goal active until resolved.
+
+## Follow-up: hover-to-full-screen C
+
+- [x] Replace the C launch button with mouse-entry expansion and keyboard/touch access.
+- [x] Integrate the existing demo locally after checking its upstream repository license; preserve credits and license texts.
+- [x] Implement a full-viewport modal, upper-right Return, focus restoration, Escape message bridge and hover cooldown.
+- [x] Separate demo canvas/statistics/controls; center the mirrored skater on phones.
+- [x] Verify playback, apex, Return, Escape and selected-element persistence in Edge; capture desktop/phone evidence.
+- [ ] Publish the final revision and verify C on the public URL.
