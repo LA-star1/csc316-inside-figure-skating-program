@@ -42,4 +42,4 @@ The design specification dated 2026-11-05 has been checked against App.svelte, a
 - [x] Implement a full-viewport modal, upper-right Return, focus restoration, Escape message bridge and hover cooldown.
 - [x] Separate demo canvas/statistics/controls; center the mirrored skater on phones.
 - [x] Verify playback, apex, Return, Escape and selected-element persistence in Edge; capture desktop/phone evidence.
-- [ ] Publish the final revision and verify C on the public URL.
+- [x] Publish the final revision and verify C on the public URL. Version 7 deployed application commit `8a4110d69937a144017fa4186bd3cf0cae8b8619`; the public model, apex control, Return, playback and corrected Escape bridge were verified in Edge.
