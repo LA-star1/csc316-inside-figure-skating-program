@@ -14,7 +14,7 @@
 		{#each xTicks as t}<line x1={x(t)} x2={x(t)} y1="32" y2="242" stroke="#eef0ec"/><text x={x(t)} y="260" text-anchor="middle">{t}</text>{/each}
 		<line x1="62" x2="720" y1="242" y2="242" stroke="#819088"/><line x1="62" x2="62" y1="32" y2="242" stroke="#819088"/>
 		{#each elements as element (element.id)}
-			<g class="point" role="button" tabindex="0" aria-label={`${element.skater}, ${element.segment}, ${element.element_code_raw}, base ${element.base_value.toFixed(2)}, panel score ${element.panel_element_score.toFixed(2)}`} onclick={() => onSelect(element)} onkeydown={(event) => event.key === 'Enter' && onSelect(element)}>
+			<g class="point" role="button" tabindex="0" aria-label={`${element.skater}, ${element.segment}, ${element.element_code_raw}, base ${element.base_value.toFixed(2)}, panel score ${element.panel_element_score.toFixed(2)}`} onclick={() => onSelect(element)} onkeydown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); onSelect(element); } }}>
 				<circle cx={x(element.base_value)} cy={y(element.panel_element_score)} r="4.5" class:sp-dot={element.segment==='SP'} class:fs-dot={element.segment==='FS'}><title>{element.skater} · {element.segment} · {element.element_code_raw} · base {element.base_value.toFixed(2)} · panel score {element.panel_element_score.toFixed(2)}</title></circle>
 			</g>
 		{/each}

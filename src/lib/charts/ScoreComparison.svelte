@@ -1,7 +1,7 @@
 <script>
 	import { scaleLinear } from 'd3';
 	let { segments = [] } = $props();
-	const scale = scaleLinear().domain([0, 250]).range([0, 100]);
+	const scale = scaleLinear().domain([0, 250]).range([0, 74]);
 	const tickValues = [0, 50, 100, 150, 200, 250];
 	let rows = $derived(['SP', 'FS'].map((program) => segments.find((d) => d.segment === program)).filter(Boolean));
 </script>
@@ -16,8 +16,8 @@
 		<div class="row">
 			<div class="label"><b>{row.segment}</b><small>{row.segment === 'SP' ? 'Short program' : 'Free skate'}</small></div>
 			<div class="bars">
-				<div class="bar-line"><span class="bar tes" style={`width:${scale(row.TES)}%`}></span><span class="number">TES {row.TES.toFixed(2)}</span></div>
-				<div class="bar-line"><span class="bar tss" style={`width:${scale(row.segment_score_TSS)}%`}></span><span class="number">TSS {row.segment_score_TSS.toFixed(2)}</span></div>
+				<div class="bar-line"><span class="bar tes" style={`width:${scale(row.TES)}%`}></span><span class="number" style={`left:calc(${scale(row.TES)}% + 6px)`}>TES {row.TES.toFixed(2)}</span></div>
+				<div class="bar-line"><span class="bar tss" style={`width:${scale(row.segment_score_TSS)}%`}></span><span class="number" style={`left:calc(${scale(row.segment_score_TSS)}% + 6px)`}>TSS {row.segment_score_TSS.toFixed(2)}</span></div>
 			</div>
 		</div>
 	{/each}
@@ -28,14 +28,15 @@
 <style>
 	.chart { display:grid; gap:.95rem; }
 	.axis,.row { display:grid; grid-template-columns:108px minmax(0,1fr); gap:.85rem; align-items:center; }
-	.axis-track { height:1.3rem; border-bottom:1px solid #ccd0cc; position:relative; }
+	.axis-track { height:1.3rem; position:relative; }
+	.axis-track::after { content:''; position:absolute; left:0; bottom:0; width:74%; height:1px; background:#ccd0cc; }
 	.axis-track span { position:absolute; bottom:.2rem; transform:translateX(-50%); color:#727b78; font-size:.7rem; }
 	.label b,.label small { display:block; }.label small { color:#727b78; font-size:.72rem; margin-top:.15rem; }
 	.bars { display:grid; gap:.38rem; }
 	.bar-line { height:1.2rem; position:relative; }
 	.bar { display:block; height:100%; border-radius:3px; min-width:1px; }
 	.tes { background:#d46b47; }.tss { background:#397a74; }
-	.number { position:absolute; left:min(calc(100% + 6px), 82%); top:50%; transform:translateY(-50%); font-size:.73rem; font-weight:700; white-space:nowrap; color:#26312e; }
+	.number { position:absolute; top:50%; transform:translateY(-50%); font-size:.73rem; font-weight:700; white-space:nowrap; color:#26312e; }
 	.legend { display:flex; gap:1rem; flex-wrap:wrap; margin-left:116px; font-size:.72rem; color:#515d58; }
 	.legend span { display:inline-flex; align-items:center; gap:.35rem; }.legend i { width:.7rem; height:.7rem; border-radius:2px; }.tes-key { background:#d46b47; }.tss-key { background:#397a74; }
 	.note { margin:0 0 0 116px; color:#6d7773; font-size:.76rem; line-height:1.45; }
