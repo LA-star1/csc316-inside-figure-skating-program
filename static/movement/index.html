@@ -4318,4 +4318,4 @@ function render(t){const w=canvas.clientWidth,h=canvas.clientHeight;renderer.set
 document.querySelector('header small').textContent='Mirrored joint motion + simulated travel';
 document.querySelector('.details').textContent='Entire motion mirrored left/right. Original joint order and timing preserved. Flight phases are illustrative; exact 1.5 airborne rotations and foot contacts are not verified.';
 window.addEventListener('error',e=>el('error').textContent=e.message);loadBody();requestAnimationFrame(render);
-</script><script>window.addEventListener('keydown',event=>{if(event.key==='Escape'){event.preventDefault();window.parent.postMessage({type:'motion-escape'},location.origin);}});</script></body></html>
+</script><script>window.addEventListener('keydown',event=>{if(event.key==='Escape'){event.preventDefault();window.parent.postMessage({type:'motion-escape'},new URL(document.baseURI).origin);}});</script></body></html>
