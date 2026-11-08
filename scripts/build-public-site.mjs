@@ -33,13 +33,13 @@ const publicFiles = [
 	'movement/axel-1a-prototype/vendor/GLTFLoader.js',
 	'movement/axel-1a-prototype/vendor/three.umd.js',
 	...[
-		'single-axel-1a-human-rink-v67-frame039-side.png',
-		'single-axel-1a-human-rink-v67-frame074-front.png',
-		'single-axel-1a-human-rink-v67-frame074-side.png',
-		'single-axel-1a-human-rink-v67-frame074-skate-inspection.png',
-		'single-axel-1a-human-rink-v67-frame093-side.png',
-		'single-axel-1a-human-rink-v67-public.blend',
-		'single-axel-1a-human-rink-v67-web.glb'
+		'single-axel-1a-human-rink-v69-frame039-side.png',
+		'single-axel-1a-human-rink-v69-frame074-front.png',
+		'single-axel-1a-human-rink-v69-frame074-side.png',
+		'single-axel-1a-human-rink-v69-frame074-skate-inspection.png',
+		'single-axel-1a-human-rink-v69-frame093-side.png',
+		'single-axel-1a-human-rink-v69-public.blend',
+		'single-axel-1a-human-rink-v69-web.glb'
 	].map((name) => `movement/axel-1a-prototype/${name}`)
 ];
 
