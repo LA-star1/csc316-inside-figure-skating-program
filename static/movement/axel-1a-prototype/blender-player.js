@@ -3,7 +3,7 @@ import { findExportedNameMatch } from './camera-name.mjs';
 const THREE = globalThis.THREE;
 const GLTFLoader = THREE?.GLTFLoader;
 
-const FILE = '/movement/axel-1a-prototype/single-axel-1a-human-rink-v66-web.glb';
+const FILE = '/movement/axel-1a-prototype/single-axel-1a-human-rink-v67-web.glb';
 const CAMERA_NAMES = [
 	'Action side view · horizontal follow composition',
 	'Action front view',
@@ -96,7 +96,7 @@ function resize() {
 }
 
 function setPlaybackTime(time, updateSlider = true) {
-	if (!activeCamera) throw new Error('The v66 GLB camera was not resolved.');
+	if (!activeCamera) throw new Error('The v67 GLB camera was not resolved.');
 	playbackTime = Math.max(0, Math.min(duration, time));
 	mixer.setTime(playbackTime);
 	updateInspectionCamera();
@@ -166,15 +166,15 @@ async function start() {
 		inspectionBoot = findExportedNameMatch(sceneObjects, 'Right skate · website boot v64');
 		inspectionCamera = findExportedNameMatch(sceneObjects, CAMERA_NAMES[2]);
 		if (!inspectionRunner || !inspectionBoot || !inspectionCamera?.isCamera) {
-			throw new Error('The v66 skate inspection camera or figure blade is missing.');
+			throw new Error('The v67 skate inspection camera or figure blade is missing.');
 		}
 		const clips = gltf.animations;
 		animationTrackCount = clips.reduce((count, clip) => count + clip.tracks.length, 0);
 		if (!clips.length || animationTrackCount < 80) {
-			throw new Error('The v66 GLB did not contain the expected articulated 3D action.');
+			throw new Error('The v67 GLB did not contain the expected articulated 3D action.');
 		}
 		duration = Math.max(...clips.map((clip) => clip.duration));
-		if (!Number.isFinite(duration) || duration <= 0) throw new Error('The v66 animation has no usable duration.');
+		if (!Number.isFinite(duration) || duration <= 0) throw new Error('The v67 animation has no usable duration.');
 		mixer = new THREE.AnimationMixer(gltf.scene);
 		clipActions = clips.map((clip) => {
 			const action = mixer.clipAction(clip);
@@ -201,10 +201,10 @@ async function start() {
 		resetButton.disabled = false;
 		fullscreenButton.disabled = false;
 		setPlaybackTime(0);
-		message.textContent = `Ready · Blender v66 · ${(duration).toFixed(2)} s · ${animationTrackCount} animated channels · ${renderer.info.render.calls} draw calls`;
+		message.textContent = `Ready · Blender v67 · ${(duration).toFixed(2)} s · ${animationTrackCount} animated channels · ${renderer.info.render.calls} draw calls`;
 		requestAnimationFrame(animate);
 	} catch (error) {
-		console.error('Blender v66 player failed to load:', error);
+		console.error('Blender v67 player failed to load:', error);
 		message.textContent = `3D playback failed: ${error.message}. Open README for the .blend and fallback previews.`;
 		message.setAttribute('data-error', 'true');
 	}

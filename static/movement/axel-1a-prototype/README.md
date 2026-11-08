@@ -1,8 +1,16 @@
 # Single Axel 1A illustrative pose study
 
-## Current version: v66 website skate meshes with calibrated orientation
+## Current version: v67 website-derived skates with heel fragment removed
 
-### Public website playback (Sites v9, November 8, 2026)
+- Full local Blender source: `single-axel-1a-human-rink-v67.blend`; compact public download: `single-axel-1a-human-rink-v67-public.blend`; browser animation: `single-axel-1a-human-rink-v67-web.glb`. Builder: `scripts/prepare_1a_boot_island_cleanup_v67.py`. All files derive from v66 without replacing it or v8.
+- Both website-derived boot meshes contained two disconnected islands after welding duplicate triangle vertices. The primary shell had 10,768 faces; the detached 573-face fragment sat below the heel and had 101 open boundary edges. V67 removes only that detached fragment, recalculates normals and enables smooth shading. Each retained boot has 5,386 vertices and 10,768 faces.
+- The complete local scene keeps the original default `Scene` with `Camera`, `Cube`, and `Light`, plus the active 183-object skater/rink scene, four cameras, 160-frame animation and empty seating. The 5.6 MB compact download preserves the default and complete v67 scenes while omitting four superseded exploratory scenes.
+- Blender 5.2.3 background evaluation sampled both blade meshes at all 160 integer frames. Neither blade crossed ice z=0; the minimum sampled z was +13.39 mm for each. This does not prove collision-free movement between frames or prevent all trouser/boot intersections. Playback remains 12 fps / 13.33 seconds.
+- Blender renders: `single-axel-1a-human-rink-v67-frame039-side.png`, `...-frame074-side.png`, `...-frame093-side.png`, `...-frame074-front.png`, and `...-frame074-skate-inspection.png`. The side, front, and close-up views were reviewed; the detached heel projection is gone. Existing website skate geometry remains adapted from Ice Skates by IsaacTheMaverick (Sketchfab/Objaverse), CC BY 4.0; see `../THIRD_PARTY_NOTICES.md`.
+- Motion, phases, contacts, travel, lift correction and pose sequence are illustrative/simulated, not Beijing 2022 athlete capture. The skate is not a verified 1XL Drop mold; the rink is illustrative and not certified venue geometry.
+- Blender MCP was visible in this Codex session but its live `localhost:9876` call timed out. The saved scene was built, rendered and checked with Blender 5.2.3 background mode. Website code and a curated Vercel build now target v67. The existing public Codex Site is still at version 11 until the source host becomes reachable; no v67 production deployment is claimed yet.
+
+### Previously published Codex Site playback (Sites v11, November 8, 2026)
 
 - Production URL: <https://inside-figure-skating-program.eagercoast2.chatgpt.site> (existing public Site; access mode preserved).
 - Latest Site version is 11. Its source commit is `be50eedb77d39a50b9b4d7265b02449d8713ff63`; deployment `appgdep_6aefdeb9b4d881919ea1d11273777942` returned `succeeded`.
@@ -16,6 +24,10 @@
 - Preview renders: `single-axel-1a-human-rink-v66-frame039-side.png`, `...-frame074-side.png`, `...-frame093-side.png`, `...-frame074-front.png`, and `...-frame074-skate-inspection.png`. The scene opens at frame 74 with the horizontal side camera, uses 12 fps/160 frames, and retains the default `Scene` with Camera/Cube/Light.
 - The source blade mesh visibly has an angular projection around the heel; v66 keeps the exact source geometry and does not claim to repair that source-model shape. The skate is not an exact verified 1XL Drop product mold. Poses, rotation, lift correction, phases, contacts and path remain illustrative/simulated, not Beijing 2022 athlete capture. The rink is illustrative and not certified venue geometry.
 - Blender MCP was not connected during this iteration. Blender 5.2.3 was run locally in background mode for build, export, rendering and numerical checks. Browser control timed out before a live browser pass; the local project build is the remaining web-integration check. No public deployment was made.
+
+## Previous version: v66 website skate meshes with calibrated orientation
+
+- V66's exact website source mesh and toe-aligned 22-joint motion remain preserved as the parent of v67. Its heel projection was a detached 573-face boot island, not the blade. The complete v66 source and its deployment evidence are retained in the version history below and in the project summary.
 
 ## Previous version: v62 slim figure-skate runner
 
