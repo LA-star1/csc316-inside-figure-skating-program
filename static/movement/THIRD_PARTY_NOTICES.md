@@ -10,6 +10,8 @@
 
 The page now deforms the opaque mesh with its original skin weights. Nineteen skin bones are mapped to the MotionExpert joint positions using segment frames. The original integral shoes are masked where the imported skate boots take over. Materials and pose are modified. This is a generic stylized body, not a scan of the recorded athlete. Bone twist and wrist orientation are approximate.
 
+The earlier Blender v2/v3 scenes retained in the versioned `.blend` files use the CesiumMan model embedded in `index.html`; they do not add a separate model copy. They retarget the weighted surface to the generic 22-joint reference. The active v8 scene uses a project-authored volumetric primitive human and does not use the CesiumMan body mesh. The v8 file retains the older scenes as checkpoints, so this attribution remains applicable to those archived scenes. The v8 head and rink are project-authored, not a likeness or capture of an athlete.
+
 ## Ice skates
 
 - Asset: **Ice Skates**, by **IsaacTheMaverick**
@@ -21,6 +23,8 @@ The page now deforms the opaque mesh with its original skin weights. Nineteen sk
 - Original local file: `ice_skates_isaac.glb`.
 - Modifications: extracted one skate from the posed pair, removed display objects and ice, normalized orientation and size, mirrored for the second foot, recolored materials. Generated geometry: `skate-derived.json`.
 - Build conversion: `node prepare_skate.cjs`, then `node build_skater_viewer.cjs` from the workspace root.
+
+The Blender v3, v8, v18, and v22 scenes reuse the skate geometry embedded in `index.html`, including the boot, blade, tongue, and lace meshes. The active v8 scene reuses the fitted skate assemblies and their generic animation from v3. v18 enlarges both assemblies 1.5×; v22 enlarges the v18 assemblies another 1.5× around the fitted ankle anchors. v22 trims a localized heel-side scan patch, welds duplicate vertices for smoother shading, and adds a small project-authored heel repair cover. The source geometry and these modifications remain under the credited CC BY 4.0 terms. This is a visual fit to the generic pose reference. It is not a certified skate-size measurement; the source joint sequence does not measure blade roll or contact edge.
 
 The first candidate by UniverseGames23234 was not imported: its download API required authentication. The IsaacTheMaverick asset is independently available in the public Objaverse collection. The model is artist-created and is not a certified measurement of standard skating equipment.
 
@@ -38,12 +42,16 @@ The MotionExpert coordinates are pelvis-centred. The displayed lift is a relativ
 - Three.js geometry references: <https://threejs.org/docs/pages/SphereGeometry.html>, <https://threejs.org/docs/pages/BufferGeometry.html>, and <https://threejs.org/manual/pages/primitives.html>.
 - The head is a generic stylized replacement aligned to the recorded neck/head direction, not an athlete scan. Original head-weighted triangles are removed, and the new opaque head is centered above the neck rather than offset in front of the old head. The earlier claim that head masking necessarily removes the torso was incorrect; the corrected filtering preserves the body.
 
+### Blender v8 head
+
+The active v8 Blender scene builds its head from native authored mesh rings and ellipsoid details for ears, eyes, irises, brows, nose, scalp, and hair. No external head model or texture is embedded. A BlendKit “Human Base Mesh (Sculpting)” candidate was reviewed, but retrieval requires its add-on/account; the scene therefore does not depend on that external service. The candidate is listed as Royalty Free at <https://www.blendkit.com/asset-gallery-detail/b881b381-b12a-4057-b018-6506331564df/>; terms are at <https://www.blendkit.com/docs/licenses/>. It is not included in the project.
+
 
 ## MotionExpert
 Source: https://github.com/MotionXperts/MotionExpert (Apache-2.0 repository license, verified 2026-11-05). The released dataset is described in its README and stored in its dataset directory. This existing demo uses one Single Axel sequence, cropped to 200 display frames, mirrored, smoothed and combined with illustrative travel. The motion is not Olympic athlete capture. Full repository license: LICENSE.MOTIONEXPERT.txt.
 
 ## Three.js and GLTFLoader
-Three.js by the Three.js authors, MIT license. Source: https://github.com/mrdoob/three.js. Full license: LICENSE.THREE.txt.
+Three.js by the Three.js authors, MIT license. Source: https://github.com/mrdoob/three.js. Full license: LICENSE.THREE.txt. The Blender v61 web player bundles Three.js r160 and its matching `GLTFLoader` addon in `axel-1a-prototype/vendor/`; these files were extracted from the project's existing inline runtime in `static/movement/index.html`. The player loads these local copies and does not request Three.js from a CDN. The older generic 22-joint page continues to use its existing bundled/inline implementation.
 
 ## Integration changes
 The original demo was copied from the user’s existing generated Single Axel page; only presentation CSS was changed to separate its canvas, statistics and controls. The overlay and return navigation are part of the CSC316 application.

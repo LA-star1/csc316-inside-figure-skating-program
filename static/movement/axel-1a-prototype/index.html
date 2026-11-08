@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="An illustrative, simulated Single Axel sequence shown from front and side views.">
+	<title>Single Axel 1A · Illustrative pose study</title>
+	<style>
+		:root{color-scheme:dark;--ink:#eaf3f4;--muted:#a8c0c7;--line:#365464;--panel:#183545;--ice:#d8e9ed;--ice-line:#9cb8c3;--accent:#8de3d5;--gold:#f0bd70;--alert:#ffcf86}
+		*{box-sizing:border-box}body{margin:0;background:#102734;color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif}
+		main{width:min(1440px,100%);margin:0 auto;padding:clamp(1rem,3vw,2.5rem)}header{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:1.3rem}
+		h1{font-size:clamp(1.4rem,3vw,2.2rem);letter-spacing:-.03em;margin:0}.sub{margin:.3rem 0 0;color:var(--muted);max-width:66ch}
+		.badge{border:1px solid #a76d3c;color:var(--alert);background:#4a3528;border-radius:999px;padding:.4rem .75rem;font-size:.72rem;font-weight:750;letter-spacing:.08em;white-space:nowrap}
+		.notice{border-left:4px solid var(--gold);background:#2b3340;padding:.8rem 1rem;margin:0 0 1rem;color:#f2e2ca}.notice strong{color:#ffcf86}
+		.stats{display:flex;flex-wrap:wrap;gap:.55rem;margin:1rem 0}.stat{border:1px solid var(--line);border-radius:7px;background:#142f3d;padding:.55rem .8rem;min-width:145px}.stat b{display:block;color:var(--accent);font-size:1.2rem}.stat span{color:var(--muted);font-size:.72rem}
+		.blender-showcase{display:grid;grid-template-columns:minmax(240px,.75fr) minmax(0,1.6fr);gap:1rem;align-items:center;margin:1rem 0;padding:1rem;border:1px solid var(--line);border-radius:10px;background:#142f3d}.blender-showcase h2{margin:.1rem 0 .5rem;font-size:1.1rem}.blender-showcase p{margin:.4rem 0;color:var(--muted);font-size:.85rem}.blender-actions{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:.75rem}.blender-actions a{display:inline-flex;align-items:center;border:1px solid #577482;border-radius:6px;background:#244657;color:var(--ink);padding:.55rem .8rem;text-decoration:none}.blender-actions a:hover{background:#2e586b}.blender-views{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.65rem}.blender-views figure{margin:0;min-width:0}.blender-views img{display:block;width:100%;height:clamp(150px,20vw,280px);object-fit:contain;background:#0d1e28;border:1px solid #365464;border-radius:7px}.blender-views figcaption{color:var(--muted);font-size:.72rem;margin-top:.3rem}
+		.views{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.view{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--panel);min-width:0}.view h2{font-size:.95rem;margin:0;padding:.75rem 1rem;display:flex;justify-content:space-between;align-items:center}.view h2 small{font-size:.7rem;color:var(--muted);font-weight:500}
+		canvas{display:block;width:100%;height:clamp(330px,45vw,560px);background:var(--ice)}
+		.player{display:grid;grid-template-columns:auto auto 1fr auto;align-items:center;gap:.65rem;margin-top:1rem;padding:.8rem;border:1px solid var(--line);border-radius:10px;background:#142f3d}button{font:inherit;color:var(--ink);border:1px solid #577482;border-radius:6px;background:#244657;padding:.55rem .8rem;cursor:pointer}button:hover{background:#2e586b}button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--gold);outline-offset:2px}#play{background:#217b7c}input[type=range]{width:100%;accent-color:var(--accent)}.counter{font-variant-numeric:tabular-nums;color:var(--muted);font-size:.78rem;white-space:nowrap}
+		.phase{margin:.75rem 0}.phase-name{display:flex;justify-content:space-between;gap:.5rem;font-size:.78rem;color:var(--muted);margin-bottom:.35rem}.phase-name b{color:var(--gold)}.phase-track{height:9px;display:flex;overflow:hidden;border-radius:999px;background:#283d47}.phase-track span{height:100%;border-right:1px solid #17323f}.phase-track .active{background:var(--gold);box-shadow:0 0 12px #f0bd7066}
+		#status{min-height:1.5em;color:var(--muted);font-size:.8rem}.credits{border-top:1px solid var(--line);margin-top:1.5rem;padding-top:1rem;color:var(--muted);font-size:.8rem}.credits a{color:#a5e4f0}.credits summary{cursor:pointer;color:var(--ink);padding:.45rem 0}.credits p{max-width:90ch}.credits .warning{color:#f1d6b1}
+		.blender-player{margin:1rem 0 1.5rem;padding:1rem;border:1px solid var(--line);border-radius:10px;background:#142f3d}.blender-player-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem}.blender-player-heading h2{margin:.1rem 0 .4rem;font-size:1.2rem}.blender-player-heading p{margin:.3rem 0 .75rem;color:var(--muted);font-size:.88rem;max-width:78ch}.stage-shell{position:relative;width:100%;aspect-ratio:3/2;max-height:640px;overflow:hidden;border:1px solid #365464;border-radius:8px;background:#c9dce1}.stage-shell canvas{display:block;width:100%;height:100%;background:#c9dce1}.stage-message{position:absolute;inset:auto 1rem 1rem;width:max-content;max-width:calc(100% - 2rem);padding:.45rem .7rem;border-radius:6px;background:#102734df;color:var(--ink);font-size:.8rem}.camera-picks{display:flex;flex-wrap:wrap;gap:.5rem;margin:.7rem 0}.camera-picks button[aria-pressed=true]{background:#3b6b70;border-color:var(--accent)}.blender-controls{display:grid;grid-template-columns:auto auto minmax(90px,1fr) auto auto auto auto;align-items:center;gap:.55rem}.blender-controls button:disabled,.blender-controls input:disabled{opacity:.55;cursor:wait}.blender-controls select{font:inherit;color:var(--ink);border:1px solid #577482;border-radius:6px;background:#244657;padding:.55rem .65rem}.speed-label{color:var(--muted);font-size:.8rem}.viewer-note{margin:.65rem 0 0;color:var(--muted);font-size:.78rem}.stage-shell:fullscreen{width:100vw;height:calc(100vh - 24px);max-height:none;aspect-ratio:auto;border:0;border-radius:0;background:#c9dce1}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+		@media(max-width:760px){header{flex-direction:column}.views{grid-template-columns:1fr}.view canvas{height:390px}.player{grid-template-columns:auto auto 1fr}.counter{grid-column:1/-1;text-align:right}.stat{flex:1;min-width:120px}.blender-showcase{grid-template-columns:1fr}.blender-views{grid-template-columns:1fr}.blender-views img{height:auto;max-height:300px}}
+		@media(max-width:760px){.blender-player-heading{flex-direction:column}.blender-controls{grid-template-columns:auto auto minmax(70px,1fr)}.blender-controls #blender-frame{grid-column:1/-1;grid-row:2}.blender-controls #blender-counter{grid-column:1/-1;grid-row:3;text-align:right}.blender-controls .speed-label{grid-column:1;grid-row:4}.blender-controls #blender-speed{grid-column:2;grid-row:4}.blender-controls #blender-fullscreen{grid-column:3;grid-row:4}.stage-shell{aspect-ratio:4/3}}
+		@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+	</style>
+	<script type="importmap">
+		{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.186.1/examples/jsm/"}}
+	</script>
+</head>
+<body>
+<main>
+	<header><div><h1>Single Axel · 1A pose study</h1><p class="sub">A generic 22-joint reference sequence with a separate simulated approach, takeoff, 1.5-turn flight, landing and exit glide.</p></div><span class="badge">ILLUSTRATIVE / SIMULATED</span></header>
+	<p class="notice"><strong>Illustrative model.</strong> Joint poses are a generic MotionExpert reference, reoriented for display. Phase timing, 540° airborne yaw, lift and travel are simulated; this is not Beijing 2022 athlete capture.</p>
+	<div class="stats" aria-label="Simulation settings"><div class="stat"><b>1.5 turns</b><span>simulated airborne yaw · 540°</span></div><div class="stat"><b>0.44 m</b><span>illustrative peak lift</span></div><div class="stat"><b>1.92 m</b><span>illustrative airborne travel</span></div><div class="stat"><b>200</b><span>display frames · playback slowed</span></div></div>
+	<section class="blender-showcase" aria-labelledby="blender-scene-title"><div><span class="badge">ILLUSTRATIVE / SIMULATED</span><h2 id="blender-scene-title">Full 3D skater and capsule arena · v66</h2><p>Blender 5.2.3 scene with the project's exact website skate meshes: boot, blade, tongue and laces extracted from <code>static/movement/index.html</code>. The website's calibrated ankle-to-forefoot orientation is applied to the 22-joint pose sequence, then the animated root is raised using evaluated blade geometry. Across 637 quarter-frame samples per skate, no blade vertex fell below the modeled ice; the minimum clearances were 10.74 mm (left) and 5.00 mm (right). This is sampled geometry evidence, not continuous collision or fabric-body collision proof. Playback uses 12 fps and lasts 13.33 seconds. The single .blend contains the skater, capsule rink, boards, glass, empty four-tier seating, cameras, lighting and animation.</p><p>The imported source blade includes an angular projection near the heel that remains visible in the close-up; the underlying CC BY 4.0 mesh has not been sculpt-cleaned. The skates are not verified as an exact 1XL Drop mold. Motion, poses, phases and trajectory are illustrative/simulated, not Beijing 2022 athlete capture; the rink is not certified geometry.</p><div class="blender-actions"><a href="./single-axel-1a-human-rink-v66-public.blend" download>Download Blender v66 scene (.blend)</a><a href="./single-axel-1a-human-rink-v66-web.glb" download>Download animated web model (.glb)</a><a href="./README.md">Sources, licenses and limitations</a></div></div><div class="blender-views"><figure><img src="./single-axel-1a-human-rink-v66-frame074-side.png" alt="Stylized skater at the illustrative Single Axel apex, viewed from the side"><figcaption>Side view · frame 74 · simulated apex</figcaption></figure><figure><img src="./single-axel-1a-human-rink-v66-frame093-side.png" alt="Stylized skater in the simulated descent, viewed from the side"><figcaption>Side view · frame 93 · simulated descent</figcaption></figure><figure><img src="./single-axel-1a-human-rink-v66-frame074-skate-inspection.png" alt="Close view of the website-derived boot and figure-skate blade"><figcaption>Website skate mesh inspection · frame 74</figcaption></figure><figure><img src="./single-axel-1a-human-rink-v66-frame074-front.png" alt="Front view of the stylized skater at the illustrative Single Axel apex"><figcaption>Front view · frame 74 · simulated apex</figcaption></figure></div></section>
+	<section class="blender-player" aria-labelledby="blender-player-title">
+		<div class="blender-player-heading"><div><h2 id="blender-player-title">Blender v66 · 3D Single Axel playback</h2><p>Play the v66 Blender scene as a real-time 3D model. The animated skater, capsule ice and empty stands load together. Switch between horizontal side, front, skate close-up and arena views; play, pause, scrub and compare slow with normal speed.</p></div><span class="badge">ILLUSTRATIVE / SIMULATED</span></div>
+		<div class="stage-shell" id="stage-shell"><canvas id="blender-stage" aria-label="Blender v66 stylized skater animation on capsule-shaped ice"></canvas><div class="stage-message" id="stage-message" role="status">Loading Blender v66 animation…</div></div>
+		<div class="camera-picks" role="group" aria-label="3D camera view">
+			<button type="button" data-camera="Action side view · horizontal follow composition" aria-pressed="true">Side view</button>
+			<button type="button" data-camera="Action front view" aria-pressed="false">Front view</button>
+			<button type="button" data-camera="Skate inspection · close view" aria-pressed="false">Skate close-up</button>
+			<button type="button" data-camera="Arena overview · full 60×30 rink" aria-pressed="false">Arena</button>
+		</div>
+		<div class="blender-controls"><button id="blender-play" type="button" disabled>Play</button><button id="blender-reset" type="button" disabled>Restart</button><label class="sr-only" for="blender-frame">Blender animation frame</label><input id="blender-frame" type="range" min="0" max="159" step="1" value="0" aria-label="Blender animation frame" disabled><span id="blender-counter" class="counter">Frame 1 / 160</span><label class="speed-label" for="blender-speed">Speed</label><select id="blender-speed" aria-label="Playback speed"><option value="0.35">Slow · 0.35×</option><option value="1" selected>Normal · 1× (13.33 s)</option></select><button id="blender-fullscreen" type="button" disabled>Fullscreen</button></div>
+		<p class="viewer-note">All joint poses, phases and trajectories are illustrative / simulated; this is not Beijing 2022 athlete capture. The 3D player loads the pinned Three.js library from jsDelivr, so the browser needs an internet connection.</p>
+	</section>
+	<div class="phase" aria-live="polite"><div class="phase-name"><span>Independent generic 22-joint reference · phase</span><b id="phase-label">Loading…</b><span id="phase-detail">—</span></div><div class="phase-track" id="phase-track" aria-hidden="true"></div></div>
+	<section class="views" aria-label="Independent 22-joint pose reference projections"><article class="view"><h2>Generic front reference <small>illustrative 22-joint pose</small></h2><canvas id="front" aria-label="Front projection of the illustrative 22-joint Single Axel pose sequence"></canvas></article><article class="view"><h2>Generic side reference <small>separate 2D reference player</small></h2><canvas id="side" aria-label="Side projection showing the simulated Single Axel travel and 22-joint pose sequence"></canvas></article></section>
+	<div class="player"><button id="play" type="button">Play</button><button id="reset" type="button">Restart</button><label class="sr-only" for="frame">Animation frame</label><input id="frame" type="range" min="0" max="199" step="1" value="0" aria-label="Animation frame"><span class="counter" id="counter">Frame 1 / 200</span></div>
+	<p id="status" role="status">Loading the generic joint reference…</p>
+	<details class="credits"><summary>Source, license and simulation assumptions</summary>
+		<p>Joint positions come from the generic Single Axel sequence already used by this project, sourced from the <a href="https://github.com/MotionXperts/MotionExpert">MotionExpert repository</a>. The 22 source joints are reoriented around the pelvis for this pose study. The source sequence is not identified here as a Beijing 2022 athlete or competition capture.</p>
+		<p>Takeoff at frame 44, landing at frame 102, 540° body yaw, 0.60 s flight preset and 3.2 m/s illustrative forward component are presentation parameters. The resulting 1.92 m travel and 0.44 m ballistic rise are computed examples, not measured performance. Playback is slowed; display-frame timing is not source timing. The 2018 Axel biomechanics paper linked below reports one elite junior case study; it is context, not a population average or the source of these joint poses.</p>
+		<p><a href="https://sciendo.com/2/v2/download/article/10.2478/pjst-2018-0007.pdf">Mazurkiewicz et al. (2018), Biomechanics of the Axel Paulsen Figure Skating Jump</a>.</p>
+		<p>MotionExpert is distributed under Apache-2.0; the full license and project-level credits are retained at <a href="../LICENSE.MOTIONEXPERT.txt">LICENSE.MOTIONEXPERT.txt</a> and <a href="../THIRD_PARTY_NOTICES.md">THIRD_PARTY_NOTICES.md</a>. This new pose study adds no third-party mesh or texture.</p>
+		<p class="warning">Illustrative animation only. It does not establish verified blade contact, exact competition technique, measured jump height or actual athlete travel.</p>
+	</details>
+</main>
+<script type="module" src="./blender-player.js?v=54"></script>
+<script type="module">
+	const PHASES = [
+		{start:0,end:38,label:'Approach · simulated'},
+		{start:39,end:39,label:'Take-off · simulated'},
+		{start:40,end:72,label:'Airborne ascent · simulated'},
+		{start:73,end:73,label:'Apex · simulated'},
+		{start:74,end:92,label:'Airborne descent · simulated'},
+		{start:93,end:93,label:'Landing · simulated'},
+		{start:94,end:199,label:'Exit glide · simulated'},
+	];
+	const BONES = [[0,3],[3,6],[6,9],[9,12],[12,15],[9,13],[13,16],[9,14],[14,17],[16,18],[18,20],[17,19],[19,21],[0,1],[1,4],[4,7],[7,10],[0,2],[2,5],[5,8],[8,11]];
+	const START=39,END=93,TRAVEL=1.92,LIFT=.44,ROTATION=Math.PI*3,BODY_HEIGHT=1.72;
+	const $=(id)=>document.getElementById(id), frameInput=$('frame'), play=$('play'), canvases=[['front',$('front')],['side',$('side')]];
+	const track=$('phase-track');
+	for(const phase of PHASES){const band=document.createElement('span');band.style.width=`${(phase.end-phase.start+1)/200*100}%`;band.title=phase.label;band.dataset.start=phase.start;band.dataset.end=phase.end;track.append(band);}
+	const normalize=(v)=>{const n=Math.hypot(...v)||1;return v.map(x=>x/n)};
+	const sub=(a,b)=>a.map((x,i)=>x-b[i]);
+	const dot=(a,b)=>a.reduce((s,x,i)=>s+x*b[i],0);
+	const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+	let poses=[],frame=0,playing=false,lastTime=0,scale=1;
+	function canonicalize(raw){
+		let previousForward=null;
+		const local=raw.map((pose)=>{
+			const up=normalize(sub(pose[12],pose[0]));
+			let lateral=normalize(sub(pose[17],pose[16]));
+			let forward=normalize(cross(lateral,up));
+			if(previousForward&&dot(forward,previousForward)<0){lateral=lateral.map(v=>-v);forward=forward.map(v=>-v);}
+			previousForward=forward;
+			return pose.map((point)=>{const d=sub(point,pose[0]);return [dot(d,lateral),dot(d,up),dot(d,forward)];});
+		});
+		const heights=local.flatMap((pose)=>pose.map((p)=>p[1]));
+		const extent=Math.max(...heights)-Math.min(...heights);
+		scale=BODY_HEIGHT/(extent||1);
+		return local;
+	}
+	function simulation(f){
+		let t=Math.max(0,Math.min(1,(f-START)/(END-START)));
+		let z,yaw,lift=0;
+		if(f<START){const u=f/START;z=-TRAVEL/2-.77*(1-u)**1.35;yaw=0;}
+		else if(f<=END){z=(t-.5)*TRAVEL;yaw=ROTATION*t;lift=4*LIFT*t*(1-t);}
+		else{const u=(f-END)/(199-END);z=TRAVEL/2+1.25*u;yaw=ROTATION;}
+		return {z,yaw,lift,t};
+	}
+	function interpolate(f){const lo=Math.floor(f),hi=Math.min(poses.length-1,lo+1),mix=f-lo;return poses[lo].map((p,i)=>p.map((v,k)=>v+(poses[hi][i][k]-v)*mix));}
+	function worldPose(f){const motion=simulation(f),local=interpolate(f),c=Math.cos(motion.yaw),s=Math.sin(motion.yaw),floorOffset=-Math.min(local[10][1],local[11][1])*scale;return local.map(([x,y,z])=>[c*x+s*z, y*scale+floorOffset+motion.lift, -s*x+c*z+motion.z]);}
+	function currentPhase(f){return PHASES.find((p)=>f>=p.start&&f<=p.end)||PHASES.at(-1);}
+	function fitCanvas(canvas){const rect=canvas.getBoundingClientRect(),dpr=Math.min(2,window.devicePixelRatio||1),width=Math.round(rect.width*dpr),height=Math.round(rect.height*dpr);if(canvas.width!==width||canvas.height!==height){canvas.width=width;canvas.height=height;}return {ctx:canvas.getContext('2d'),w:canvas.width,h:canvas.height,dpr};}
+	function draw(name,canvas){
+		const {ctx,w,h}=fitCanvas(canvas);ctx.clearRect(0,0,w,h);ctx.fillStyle='#d8e9ed';ctx.fillRect(0,0,w,h);
+		const pad=w*.12,top=h*.10,ground=h*.84,spanX=w-pad*2,spanY=ground-top;
+		const now=worldPose(frame),motion=simulation(frame),isFront=name==='front';
+		const project=(p)=>{const horizontal=isFront?p[0]:p[2];const center=isFront?0:0.25;return [w/2+(horizontal-center)*spanX/4.25,ground-p[1]*spanY/2.35];};
+		ctx.strokeStyle='#b4c9d0';ctx.lineWidth=1;for(let i=0;i<6;i++){const y=top+i*(ground-top)/5;ctx.beginPath();ctx.moveTo(pad,y);ctx.lineTo(w-pad,y);ctx.stroke();}
+		ctx.strokeStyle='#547d8d';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(pad,ground);ctx.lineTo(w-pad,ground);ctx.stroke();
+		if(!isFront){ctx.save();ctx.setLineDash([6,6]);ctx.strokeStyle='#91aeb8';ctx.lineWidth=2;ctx.beginPath();for(let i=0;i<=64;i++){const f=START+(END-START)*i/64,m=simulation(f),p=project([0,m.lift,m.z]);i?ctx.lineTo(...p):ctx.moveTo(...p);}ctx.stroke();ctx.restore();
+			const contactA=project([0,0,-TRAVEL/2]),contactB=project([0,0,TRAVEL/2]);for(const p of [contactA,contactB]){ctx.beginPath();ctx.arc(p[0],ground-3,7,0,Math.PI*2);ctx.strokeStyle='#b67c2d';ctx.lineWidth=2;ctx.stroke();}}
+		ctx.lineCap='round';ctx.lineJoin='round';for(const [a,b] of BONES){const p=project(now[a]),q=project(now[b]);ctx.beginPath();ctx.moveTo(...p);ctx.lineTo(...q);ctx.strokeStyle=(a===7||a===8||b===7||b===8||b===10||b===11)?'#b9714e':'#276c70';ctx.lineWidth=Math.max(2.5,w*.006);ctx.stroke();}
+		for(let i=0;i<now.length;i++){const p=project(now[i]);ctx.beginPath();ctx.arc(p[0],p[1],Math.max(3,w*.008),0,Math.PI*2);ctx.fillStyle=i>=20?'#d59b46':'#f4f7f3';ctx.fill();ctx.lineWidth=2;ctx.strokeStyle=i>=20?'#7a4c22':'#276c70';ctx.stroke();}
+		ctx.fillStyle='#345765';ctx.font=`600 ${Math.max(11,w*.027)}px system-ui`;ctx.textAlign='left';ctx.fillText(isFront?'LATERAL × HEIGHT':'TRAVEL × HEIGHT',pad,top-7);
+		if(!isFront){ctx.textAlign='right';ctx.fillStyle='#875d25';ctx.fillText(`${motion.lift.toFixed(2)} m lift · ${Math.max(0,Math.min(TRAVEL,motion.z+TRAVEL/2)).toFixed(2)} / ${TRAVEL.toFixed(2)} m`,w-pad,top-7);}
+	}
+	function update(){
+		if(!poses.length)return;
+		frame=Math.max(0,Math.min(199,frame));frameInput.value=String(Math.round(frame));const phase=currentPhase(Math.round(frame)),motion=simulation(frame);
+		$('phase-label').textContent=phase.label;$('phase-detail').textContent=`${Math.round(motion.yaw*180/Math.PI)}° simulated yaw`;$('counter').textContent=`Frame ${Math.floor(frame)+1} / 200`;
+		for(const band of track.children)band.classList.toggle('active',frame>=+band.dataset.start&&frame<=+band.dataset.end);
+		for(const [name,canvas] of canvases)draw(name,canvas);
+	}
+	async function start(){try{const response=await fetch('./joint-reference.json');if(!response.ok)throw new Error(`Reference data request failed (${response.status})`);const data=await response.json();if(data.joint_count!==22||data.frame_count!==200||data.frames.length!==200)throw new Error('Expected a 200-frame, 22-joint reference.');poses=canonicalize(data.frames);$('status').textContent='Ready · generic joint-reference poses; simulated phase timing and travel.';update();}catch(error){$('status').textContent=error.message;$('status').style.color='#ffb7a6';}}
+	function animate(now){if(playing&&poses.length){if(!lastTime)lastTime=now;const elapsed=now-lastTime;if(elapsed>=35){frame=(frame+elapsed/35)%200;lastTime=now;update();}}requestAnimationFrame(animate);}
+	play.addEventListener('click',()=>{playing=!playing;lastTime=0;play.textContent=playing?'Pause':'Play';});
+	$('reset').addEventListener('click',()=>{playing=false;play.textContent='Play';frame=0;update();});
+	frameInput.addEventListener('input',()=>{playing=false;play.textContent='Play';frame=+frameInput.value;update();});
+	document.addEventListener('keydown',(event)=>{if(event.code==='Space'&&event.target===document.body){event.preventDefault();play.click();}if(event.code==='ArrowRight'){frame=Math.min(199,Math.round(frame)+1);update();}if(event.code==='ArrowLeft'){frame=Math.max(0,Math.round(frame)-1);update();}});
+	window.addEventListener('resize',update);requestAnimationFrame(animate);start();
+</script>
+</body>
+</html>
+
+
+
